@@ -48,7 +48,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"regexp"
 	"strconv"
 	"strings"
@@ -232,9 +235,57 @@ func rule9(s string) bool {
 
 	return false
 }
+
+type Response struct {
+	ID              int    `json:"id"`
+	Solution        string `json:"solution"`
+	PrintDate       string `json:"print_date"`
+	DaysSinceLaunch int    `json:"days_since_launch"`
+	Editor          string `json:"editor"`
+}
+
+func rule11(s string) bool {
+	var resp Response
+	apiURL := "https://www.nytimes.com/svc/wordle/v2/2024-01-01.json"
+
+	// Send a GET request
+	response, err := http.Get(apiURL)
+	if err != nil {
+		fmt.Println("Error:", err)
+
+	}
+	// defer response.Body.Close()
+	// fmt.Println(response)
+
+	// Read the response body
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		fmt.Println("Error reading response:", err)
+
+	}
+
+	// Unmarshal the JSON string into the Response struct
+	err = json.Unmarshal([]byte(body), &resp)
+	if err != nil {
+		panic(err)
+	}
+
+	// Access the "solution" field
+	solution := resp.Solution
+
+	// Print the value of the "solution" field
+	fmt.Println("Solution:", solution)
+	matched, err := regexp.Match(solution, []byte(s))
+	if err != nil {
+		panic(err)
+	}
+	return matched
+
+}
+
 func main() {
 	fmt.Println("The Go code is running")
-	s := "abc12A778marchpepsiXXXVjdlksI"
+	s := "abc12A778marchpepsiXXXVjdlksImural"
 	// s1 := "abcdefg"
 	// s2 := "abcd1234"
 	// s3 := "ABCDEFGH"
@@ -252,5 +303,9 @@ func main() {
 	// fmt.Println(rule10(s))
 
 	// fmt.Println(rule5(s))
+	fmt.Println(rule11(s))
+
+	// Print the response body as a string
+	// fmt.Println("Response:", string(body["solution"]))
 
 }
