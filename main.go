@@ -50,6 +50,7 @@ package main
 import (
 	"fmt"
 	"regexp"
+	"strconv"
 )
 
 func rule1(s string) bool {
@@ -86,16 +87,38 @@ func rule4(s string) bool {
 	}
 	return matched
 }
+
+func rule5(s string) bool {
+	// Digits must add to 25
+	regex := regexp.MustCompile(`\d`)
+	indices := regex.FindAllStringIndex(s, -1)
+	sum := 0
+	for _, indexPair := range indices {
+		startIndex := indexPair[0]
+		endIndex := indexPair[1]
+		i, err := strconv.Atoi(s[startIndex:endIndex])
+		if err != nil {
+			panic(err)
+		}
+		sum = sum + i
+	}
+	return sum == 25
+
+}
 func main() {
 	fmt.Println("The Go code is running")
-	s := "abc12A%"
+	s := "abc12A%778"
 	// s1 := "abcdefg"
 	// s2 := "abcd1234"
 	// s3 := "ABCDEFGH"
 	// s4 := "ABCDE123"
+
 	fmt.Println((rule1(s)))
 	fmt.Println((rule2(s)))
 	fmt.Println((rule3(s)))
-	fmt.Println(rule4((s)))
+	fmt.Println((rule4(s)))
+	fmt.Println((rule5(s)))
+
+	// fmt.Println(rule5(s))
 
 }
