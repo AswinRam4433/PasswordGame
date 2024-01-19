@@ -1,0 +1,40 @@
+At least 5 characters
+A number
+An uppercase letter
+A special character
+Digits summating to 25
+A month
+A roman numeral
+One of pepsi, starbucks or shell
+Roman numerals need to multiply to 35
+The solution to a provided captcha (Bypass)
+Today's Wordle answer (Bypass)
+Two letter symbol from the periodic table.
+Current phase of the moon as an emoji (one of 🌑🌓🌔🌕🌙🌛🌝🌒🌖🌗🌘🌚🌜) (Bypass)
+Name of country from Google Maps (Bypass)
+Needs a leap year (Just type 0)
+Calculate the best chess move, bypass below.
+Paul the 🥚! Don't delete him by accident or you lose the game.
+All atomic numbers in your password must add up to 200
+Before doing the next step, I suggest you copy your current password (to combat the fire in rule 20).
+All vowels must be bolded (bold button unlocked)
+Delete all of the 🔥 before it deletes your password (more importantly Paul)
+Add 4 of :man_lifting_weights:
+Needs to contain one of "i am loved", "i am worthy", "i am enough"
+Egg hatches, feed him a 🐛 every 20 seconds or paste in 3 🐛 every 50 seconds~.
+Find a YouTube video with a given (randomly generated) length.
+Good luck with this one, I just generated my own using ffmpeg and then uploaded it to youtube:
+ffmpeg -loop 1 -i image.png -c:v libx264 -t DURATIONINSECONDS -pix_fmt yuv420p -vf scale=320:240 out.mp4
+Change DURATIONINSECONDS to your desired video length in seconds. Change image.png to some valid image.
+You need to pick 2 letters you will no longer be able to use
+Your password must have twice as many italic letters as bold letters (italic button unlocked)
+Atleast 30% of your password needs to be in 'Wingdings' (you get a font selector here)
+You need to type the random color it generates in hex
+All roman numbers need to be in Times New Roman
+Font size of every digit must be equal to the square of the digit (font size picker unlocked)
+Every instance of the same letter needs a unique font size
+Password needs to contain password's length as a number
+Password length also needs to be a prime number
+(Automatically Checked off, look at the rule's number if you're asking why)
+You need the current time in format HH:MM
+Copy-Paste Re-type the password into another textbox, you have 2 minutes to do this.

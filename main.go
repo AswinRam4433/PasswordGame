@@ -49,13 +49,53 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 )
 
 func rule1(s string) bool {
-
+	// Atleast five characters must be present
+	if len(s) > 5 {
+		return true
+	} else {
+		return false
+	}
 }
 
+func rule2(s string) bool {
+	// Must contain a number in the string
+	matched, err := regexp.Match(`[0-9]`, []byte(s))
+	if err != nil {
+		panic(err)
+	}
+	return matched
+}
+func rule3(s string) bool {
+
+	matched, err := regexp.Match(`[A-Z]`, []byte(s))
+	if err != nil {
+		panic(err)
+	}
+	return matched
+}
+
+func rule4(s string) bool {
+	// Special Character
+	matched, err := regexp.Match(`[^A-Za-z0-9]`, []byte(s))
+	if err != nil {
+		panic(err)
+	}
+	return matched
+}
 func main() {
 	fmt.Println("The Go code is running")
+	s := "abc12A%"
+	// s1 := "abcdefg"
+	// s2 := "abcd1234"
+	// s3 := "ABCDEFGH"
+	// s4 := "ABCDE123"
+	fmt.Println((rule1(s)))
+	fmt.Println((rule2(s)))
+	fmt.Println((rule3(s)))
+	fmt.Println(rule4((s)))
 
 }
