@@ -185,7 +185,7 @@ func rule8(s string) bool {
 
 func rule9(s string) bool {
 	// Roman Numerals Multiply to 35
-	pat1 := `^[A-Za-z0-9]*V[A-Za-z0-9]*VII[A-Za-z0-9]*$`
+	pat1 := `^.*V.*VII.*$`
 	matched, err := regexp.Match(pat1, []byte(s))
 	if err != nil {
 		panic(err)
@@ -194,7 +194,7 @@ func rule9(s string) bool {
 		return true
 	}
 
-	pat2 := `^[A-Za-z0-9]*VII[A-Za-z0-9]*V[A-Za-z0-9]*$`
+	pat2 := `^.*VII.*V.*$`
 	matched1, err1 := regexp.Match(pat2, []byte(s))
 	if err1 != nil {
 		panic(err1)
@@ -203,7 +203,7 @@ func rule9(s string) bool {
 		return true
 	}
 
-	pat3 := `^[A-Za-z0-9]*XXXV[A-Za-z0-9]*$`
+	pat3 := `^.*XXXV.*$`
 	matched2, err2 := regexp.Match(pat3, []byte(s))
 	if err2 != nil {
 		panic(err1)
@@ -212,7 +212,7 @@ func rule9(s string) bool {
 		return true
 	}
 
-	pat4 := `^[A-Za-z0-9]*XXXV[A-Za-z0-9]*I[A-Za-z0-9]*$`
+	pat4 := `^.*XXXV.*I.*$`
 	matched3, err3 := regexp.Match(pat4, []byte(s))
 	if err3 != nil {
 		panic(err1)
@@ -221,7 +221,7 @@ func rule9(s string) bool {
 		return true
 	}
 
-	pat5 := `^[A-Za-z0-9]*I[A-Za-z0-9]*XXXV[A-Za-z0-9]*$`
+	pat5 := `^.*I.*XXXV.*$`
 	matched4, err4 := regexp.Match(pat5, []byte(s))
 	if err4 != nil {
 		panic(err1)
@@ -234,7 +234,7 @@ func rule9(s string) bool {
 }
 func main() {
 	fmt.Println("The Go code is running")
-	s := "abc12A778marchpepsiVgkgkjVII"
+	s := "abc12A778marchpepsiXXXVjdlksI"
 	// s1 := "abcdefg"
 	// s2 := "abcd1234"
 	// s3 := "ABCDEFGH"
