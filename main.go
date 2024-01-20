@@ -1,50 +1,3 @@
-// package main
-
-// import (
-// 	"fmt"
-// 	"io/ioutil"
-// 	"net/http"
-// )
-
-// func main() {
-// 	// URL of the API endpoint you want to hit
-// 	apiURL := "https://www.nytimes.com/svc/wordle/v2/2024-01-01.json"
-
-// 	// Send a GET request
-// 	response, err := http.Get(apiURL)
-// 	if err != nil {
-// 		fmt.Println("Error:", err)
-// 		return
-// 	}
-// 	defer response.Body.Close()
-
-// 	// Read the response body
-// 	body, err := ioutil.ReadAll(response.Body)
-// 	if err != nil {
-// 		fmt.Println("Error reading response:", err)
-// 		return
-// 	}
-
-// 	// Print the response body as a string
-// 	fmt.Println("Response:", string(body))
-
-// 	apiURL1 := "https://www.youtube.com/mydummyurl"
-
-// 	// Send a GET request
-// 	response1, err1 := http.Get(apiURL1)
-// 	if err1 == nil {
-// 		fmt.Println(response1)
-// 	}
-
-// 	// resp1, err1 := url.ParseRequestURI(apiURL1)
-// 	// if err1 != nil {
-// 	// 	panic(err1)
-
-// 	// } else {
-// 	// 	fmt.Println(resp1)
-// 	// }
-// }
-
 package main
 
 import (
@@ -176,18 +129,6 @@ func rule8(s string) bool {
 	return false
 
 }
-
-// func rule9(s string) bool {
-// 	// Roman Numerals Multiply to 35
-// 	pat1 := `^[A-Za-z0-9]*V[A-Za-z0-9]*VII[A-Za-z0-9]$`
-// 	matched, err := regexp.Match(pat1, []byte(s))
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	fmt.Println((matched))
-// 	return true
-
-// }
 
 func rule9(s string) bool {
 	// Roman Numerals Multiply to 35
@@ -356,63 +297,6 @@ func rule11(s string) bool {
 
 type ruleFunc func(s string) bool
 
-// ruleFunctions := []ruleFunc{
-
-func handlePasswordCheck(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
-		return
-	}
-
-	// Parse the request body to get the password
-	// body, err := io.ReadAll(r.Body)
-	// if err != nil {
-	// 	http.Error(w, "Error reading request body", http.StatusInternalServerError)
-	// 	return
-	// }
-
-	// ruleFunctions := []ruleFunc{
-	// 	rule1,
-	// 	rule2,
-	// 	rule3,
-	// 	rule4,
-	// 	rule5,
-	// 	rule6,
-	// 	rule7,
-	// 	rule8,
-	// 	rule9,
-	// 	rule10,
-	// 	rule11,
-	// }
-
-	// Parse password from the request body
-	// password := r.FormValue("password")
-	// // Parse the rule number from the request body
-	// ruleNumberStr := r.FormValue("ruleNumber")
-	// // ruleNumber, err := strconv.Atoi(ruleNumberStr)
-	// ruleNumber := ruleNumberStr
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	password := r.FormValue("password")
-	ruleNumberStr := r.FormValue("ruleNumber")
-	fmt.Println("Password is ", password)
-	fmt.Println("Rule Number is ", ruleNumberStr)
-
-	// Check password against rules
-
-	// resultJSON, err := json.Marshal(result)
-	// if err != nil {
-	// 	http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
-	// 	return
-	// }
-
-	// // Set the content type and write the JSON response
-	// w.Header().Set("Content-Type", "application/json")
-	// w.Write(resultJSON)
-}
-
 type RuleInfo struct {
 	Password string `json:"password"`
 	Rule     string `json:"ruleNumber"`
@@ -488,7 +372,6 @@ func main() {
 	// Print the response body as a string
 	// fmt.Println("Response:", string(body["solution"]))
 
-	// http.HandleFunc("/checkpassword", handlePasswordCheck)
 	http.HandleFunc("/checkpassword", handlePostRequest)
 
 	fmt.Println("Server is running on port 8080")
