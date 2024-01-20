@@ -50,8 +50,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"net/http"
+	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
@@ -411,30 +413,50 @@ func handlePasswordCheck(w http.ResponseWriter, r *http.Request) {
 	// w.Write(resultJSON)
 }
 
-type User struct {
-	ID   string `json:"password"`
-	Name string `json:"ruleNumber"`
+type RuleInfo struct {
+	Password string `json:"password"`
+	Rule     string `json:"ruleNumber"`
 }
 
 func handlePostRequest(w http.ResponseWriter, r *http.Request) {
 	// Read the request body
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		http.Error(w, "Failed to read request body", http.StatusBadRequest)
 		return
 	}
-	fmt.Println(body)
+	// fmt.Println(body)
+
 	// Decode the JSON body into a User struct
-	var user User
+	var user RuleInfo
 	err = json.Unmarshal(body, &user)
 	if err != nil {
 		http.Error(w, "Failed to parse JSON body", http.StatusBadRequest)
 		return
 	}
 
-	// Process the user data as needed
-	fmt.Printf("Received user: %+v\n", user)
+	fmt.Println("The password is ", user.Password)
+	fmt.Println("The rule number is ", user.Rule)
 
+	ruleInt, _ := strconv.Atoi(user.Rule)
+	fmt.Println(ruleInt, " ", reflect.TypeOf(ruleInt))
+
+	// Process the user data as needed
+
+	ruleFunctions := []ruleFunc{
+		rule1,
+		rule2,
+		rule3,
+		rule4,
+		rule5,
+		rule6,
+		rule7,
+		rule8,
+		rule9,
+		rule10,
+		rule11,
+	}
+	fmt.Println(ruleFunctions[0](user.Password))
 	// Send a response
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Received user: %+v\n", user)
