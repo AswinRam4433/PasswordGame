@@ -190,7 +190,7 @@ func rule9(s string) bool {
 	// Roman Numerals Multiply to 35
 	pat1 := `^.*V.*VII.*$`
 	matched, err := regexp.Match(pat1, []byte(s))
-	if err != nil {
+	if err != nil && strings.Count(s, "V") == 2 && strings.Count(s, "I") == 2 {
 		panic(err)
 	}
 	if matched == true {
@@ -202,7 +202,7 @@ func rule9(s string) bool {
 	if err1 != nil {
 		panic(err1)
 	}
-	if matched1 == true {
+	if matched1 == true && strings.Count(s, "V") == 2 && strings.Count(s, "I") == 2 {
 		return true
 	}
 
@@ -211,7 +211,7 @@ func rule9(s string) bool {
 	if err2 != nil {
 		panic(err1)
 	}
-	if matched2 == true {
+	if matched2 == true && strings.Count(s, "V") == 1 && strings.Count(s, "X") == 3 {
 		return true
 	}
 
@@ -220,7 +220,7 @@ func rule9(s string) bool {
 	if err3 != nil {
 		panic(err1)
 	}
-	if matched3 == true {
+	if matched3 == true && strings.Count(s, "X") == 3 && strings.Count(s, "I") == 1 && strings.Count(s, "V") == 1 {
 		return true
 	}
 
@@ -229,7 +229,7 @@ func rule9(s string) bool {
 	if err4 != nil {
 		panic(err1)
 	}
-	if matched4 == true {
+	if matched4 == true && strings.Count(s, "X") == 3 && strings.Count(s, "I") == 1 && strings.Count(s, "V") == 1 {
 		return true
 	}
 
