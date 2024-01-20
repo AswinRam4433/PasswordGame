@@ -245,7 +245,7 @@ type Response struct {
 	Editor          string `json:"editor"`
 }
 
-func rule11(s string) bool {
+func rule10(s string) bool {
 	var resp Response
 	apiURL := "https://www.nytimes.com/svc/wordle/v2/2024-01-01.json"
 
@@ -284,7 +284,7 @@ func rule11(s string) bool {
 
 }
 
-func rule12(s string) bool {
+func rule11(s string) bool {
 	// Moon Phase
 	// From https://jivebay.com/calculating-the-moon-phase/
 	round := func(x float64) float64 {
@@ -352,6 +352,94 @@ func rule12(s string) bool {
 
 }
 
+type ruleFunc func(s string) bool
+
+// ruleFunctions := []ruleFunc{
+
+func handlePasswordCheck(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Parse the request body to get the password
+	// body, err := io.ReadAll(r.Body)
+	// if err != nil {
+	// 	http.Error(w, "Error reading request body", http.StatusInternalServerError)
+	// 	return
+	// }
+
+	// ruleFunctions := []ruleFunc{
+	// 	rule1,
+	// 	rule2,
+	// 	rule3,
+	// 	rule4,
+	// 	rule5,
+	// 	rule6,
+	// 	rule7,
+	// 	rule8,
+	// 	rule9,
+	// 	rule10,
+	// 	rule11,
+	// }
+
+	// Parse password from the request body
+	// password := r.FormValue("password")
+	// // Parse the rule number from the request body
+	// ruleNumberStr := r.FormValue("ruleNumber")
+	// // ruleNumber, err := strconv.Atoi(ruleNumberStr)
+	// ruleNumber := ruleNumberStr
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	password := r.FormValue("password")
+	ruleNumberStr := r.FormValue("ruleNumber")
+	fmt.Println("Password is ", password)
+	fmt.Println("Rule Number is ", ruleNumberStr)
+
+	// Check password against rules
+
+	// resultJSON, err := json.Marshal(result)
+	// if err != nil {
+	// 	http.Error(w, "Error encoding JSON response", http.StatusInternalServerError)
+	// 	return
+	// }
+
+	// // Set the content type and write the JSON response
+	// w.Header().Set("Content-Type", "application/json")
+	// w.Write(resultJSON)
+}
+
+type User struct {
+	ID   string `json:"password"`
+	Name string `json:"ruleNumber"`
+}
+
+func handlePostRequest(w http.ResponseWriter, r *http.Request) {
+	// Read the request body
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Failed to read request body", http.StatusBadRequest)
+		return
+	}
+	fmt.Println(body)
+	// Decode the JSON body into a User struct
+	var user User
+	err = json.Unmarshal(body, &user)
+	if err != nil {
+		http.Error(w, "Failed to parse JSON body", http.StatusBadRequest)
+		return
+	}
+
+	// Process the user data as needed
+	fmt.Printf("Received user: %+v\n", user)
+
+	// Send a response
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Received user: %+v\n", user)
+}
+
 func main() {
 	fmt.Println("The Go code is running")
 	s := "abc12A778marchpepsiXXXVjdlksImural🌑"
@@ -373,9 +461,14 @@ func main() {
 
 	// fmt.Println(rule5(s))
 	// fmt.Println(rule11(s))
-	fmt.Println(rule12(s))
+	fmt.Println(rule11(s))
 
 	// Print the response body as a string
 	// fmt.Println("Response:", string(body["solution"]))
 
+	// http.HandleFunc("/checkpassword", handlePasswordCheck)
+	http.HandleFunc("/checkpassword", handlePostRequest)
+
+	fmt.Println("Server is running on port 8080")
+	http.ListenAndServe(":8080", nil)
 }
