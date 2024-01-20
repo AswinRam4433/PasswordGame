@@ -1,6 +1,6 @@
 # Password Game README
 
-Welcome to the Password Game repository! This project is a backend implementation of the [Password Game](https://neal.fun/password-game/) challenge. The game involves creating a password that satisfies multiple rules. The rules range from simple requirements like password length and the presence of specific characters to more complex conditions involving Roman numerals, moon phases, and dynamic data from external APIs.
+Welcome to the Password Game repository! This project is a backend implementation of the [Neal's Password Game](https://neal.fun/password-game/) challenge. The game involves creating a password that satisfies multiple rules. The rules range from simple requirements like password length and the presence of specific characters to more complex conditions involving Roman numerals, moon phases, and dynamic data from external APIs.
 
 ## Table of Contents
 
@@ -39,7 +39,7 @@ This Go application provides a password validation service based on a set of pre
 2. Clone this repository:
 
    ```bash
-   git clone https://github.com/your-username/password-game.git
+   git clone https://github.com/AswinRam4433/PasswordGame
    ```
 
 3. Change to the project directory:
@@ -79,11 +79,11 @@ Once the application is running, it exposes an HTTP endpoint for password valida
 
 ## Postman Test Cases
 
-Import the provided [Postman collection](postman/password-game.postman_collection.json) to quickly test different password scenarios against the defined rules.
+Import the provided Postman collections to quickly test different password scenarios against the defined rules.
 
 ## Contributing
 
-Feel free to contribute to this project by opening issues, providing suggestions, or submitting pull requests. Follow the [Contributing Guidelines](CONTRIBUTING.md) for more details.
+Feel free to contribute to this project by opening issues, providing suggestions, or submitting pull requests.
 
 ## License
 
