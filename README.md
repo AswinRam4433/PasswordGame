@@ -28,7 +28,7 @@ This Go application provides a password validation service based on a set of pre
 7. **Roman Numeral**: Password must contain a Roman numeral.
 8. **Sponsor Check**: Password must contain one of the sponsors: Pepsi, Shell, Starbucks.
 9. **Roman Numeral Multiplication**: Roman numerals in the password must multiply to 35.
-10. **Wordle Of The Day**: Password must contain the Wordle of the day (dynamic data from an API).
+10. **Wordle Of The Day**: Password must contain the Wordle of the day (dynamic data from an API https://github.com/sbplat/wordle).
 11. **Moon Phase Emoji**: Password must contain an emoji representing the moon phase.
 
 **The rules we check for here are a subset of the actual rules of Neal's game**
@@ -44,9 +44,6 @@ This Go application provides a password validation service based on a set of pre
 
 3. Change to the project directory:
 
-   ```bash
-   cd password-game
-   ```
 
 4. Run the application:
 
@@ -56,7 +53,7 @@ This Go application provides a password validation service based on a set of pre
 
 ## Usage
 
-Once the application is running, it exposes an HTTP endpoint for password validation. You can make requests to this endpoint using the provided [Postman](https://www.postman.com/) test cases or by sending HTTP requests programmatically.
+Once the application is running, it exposes an HTTP endpoint for password validation. You can make requests to this endpoint using the provided Postman test cases or by sending HTTP requests programmatically.
 
 ## Endpoints
 
