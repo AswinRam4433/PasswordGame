@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "f21d5799-6bb0-4e8d-957e-8a1bc37e6f76",
+		"name": "Failing Check Cases",
+		"description": "**Go Password Game Test Case**\n\nTest cases to check if backend code for PasswordGame works\n\nThis collection contains failure check test cases for a few rules out of the 11 rules",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16279626",
+		"_collection_link": "https://gold-crescent-613585.postman.co/workspace/My-Python-REST-Workspace~52f1f9d6-9e5e-4f52-ae33-9961b8057276/collection/16279626-f21d5799-6bb0-4e8d-957e-8a1bc37e6f76?action=share&source=collection_link&creator=16279626"
+	},
+	"item": [
+		{
+			"name": "R1 Fail. Atleast 5 Characters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"1234\",\r\n    \"ruleNumber\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/checkpassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checkpassword"
+					],
+					"query": [
+						{
+							"key": "password",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R5 Fail. Special Character",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"12345A$\",\r\n    \"ruleNumber\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/checkpassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checkpassword"
+					],
+					"query": [
+						{
+							"key": "password",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R9 Fail. Multiply to 35",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"12345A$55Maypepsi\",\r\n    \"ruleNumber\": \"4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/checkpassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checkpassword"
+					],
+					"query": [
+						{
+							"key": "password",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R6 Fail. Add to 25",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"12345A$55MayStarbucks\",\r\n    \"ruleNumber\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/checkpassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checkpassword"
+					],
+					"query": [
+						{
+							"key": "password",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
