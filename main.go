@@ -55,6 +55,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func rule1(s string) bool {
@@ -283,9 +284,77 @@ func rule11(s string) bool {
 
 }
 
+func rule12(s string) bool {
+	// Moon Phase
+	// From https://jivebay.com/calculating-the-moon-phase/
+	round := func(x float64) float64 {
+		if x < 0.0 {
+			return float64(int(x - 0.5))
+		}
+		return float64(int(x + 0.5))
+	}
+
+	timestamp := time.Now()
+	year, month, day := timestamp.Year(), int(timestamp.Month()), timestamp.Day()
+
+	// Moon phase calculation
+	var c, e, jd, b float64
+
+	if month < 3 {
+		year--
+		month += 12
+	}
+
+	month++
+	c = 365.25 * float64(year)
+	e = 30.6 * float64(month)
+	jd = c + e + float64(day) - 694039.09
+	jd /= 29.5305882
+	b = jd
+	jd -= b
+	b = round(jd * 8)
+
+	if b >= 8 {
+		b = 0
+	}
+
+	moon_phase := "-1"
+	switch int(b) {
+	case 0:
+		moon_phase = "🌑"
+	case 1:
+		moon_phase = "🌒"
+	case 2:
+		moon_phase = "🌓"
+	case 3:
+		moon_phase = "🌔"
+	case 4:
+		moon_phase = "🌕"
+	case 5:
+		moon_phase = "🌖"
+	case 6:
+		moon_phase = "🌗"
+	case 7:
+		moon_phase = "🌘"
+	default:
+		panic("Error In Moon Phase Calculation")
+	}
+	// fmt.Println(moon_phase)
+	matched, err := regexp.Match(moon_phase, []byte(s))
+	if err != nil {
+		panic(err)
+	}
+	if matched == true {
+		return true
+	}
+
+	return false
+
+}
+
 func main() {
 	fmt.Println("The Go code is running")
-	s := "abc12A778marchpepsiXXXVjdlksImural"
+	s := "abc12A778marchpepsiXXXVjdlksImural🌑"
 	// s1 := "abcdefg"
 	// s2 := "abcd1234"
 	// s3 := "ABCDEFGH"
@@ -299,11 +368,12 @@ func main() {
 	// fmt.Println(rule6(s))
 	// fmt.Println(rule7(s))
 	// fmt.Println(rule8(s))
-	fmt.Println(rule9(s))
+	// fmt.Println(rule9(s))
 	// fmt.Println(rule10(s))
 
 	// fmt.Println(rule5(s))
-	fmt.Println(rule11(s))
+	// fmt.Println(rule11(s))
+	fmt.Println(rule12(s))
 
 	// Print the response body as a string
 	// fmt.Println("Response:", string(body["solution"]))
