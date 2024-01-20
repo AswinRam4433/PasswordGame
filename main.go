@@ -6,7 +6,6 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
@@ -31,7 +30,7 @@ func rule2(s string) bool {
 	return matched
 }
 func rule3(s string) bool {
-
+	// Uppercase letter needed
 	matched, err := regexp.Match(`[A-Z]`, []byte(s))
 	if err != nil {
 		panic(err)
@@ -91,6 +90,7 @@ func rule6(s string) bool {
 }
 
 func rule7(s string) bool {
+	// Password Must Contain A Roman Numeral
 	rome := []string{"I", "V", "X", "L", "C", "D", "M"}
 	for i := 0; i < len(rome); i++ {
 		matched, err := regexp.Match(rome[i], []byte(s))
@@ -189,6 +189,7 @@ type Response struct {
 }
 
 func rule10(s string) bool {
+	// Wordle Of The Day
 	var resp Response
 	apiURL := "https://www.nytimes.com/svc/wordle/v2/2024-01-01.json"
 
@@ -302,6 +303,65 @@ type RuleInfo struct {
 	Rule     string `json:"ruleNumber"`
 }
 
+func checkPassword(pass string, rule int) string {
+	fmt.Println("In CheckPassword")
+	ruleFunctions := []ruleFunc{
+		rule1,
+		rule2,
+		rule3,
+		rule4,
+		rule5,
+		rule6,
+		rule7,
+		rule8,
+		rule9,
+		rule10,
+		rule11,
+	}
+	successResp := []string{
+		"Upto Rule 1 OK. Password Must Contain A Number",
+		"Upto Rule 2 OK. Password Must Contain An Uppercase Alphabet",
+		"Upto Rule 3 OK. Password Must Contain A Special Character",
+		"Upto Rule 4 OK. Digits Must Add Up to 25",
+		"Upto Rule 5 OK. Password Must Contain A Month",
+		"Upto Rule 6 OK. Password Must Contain A Roman Numeral",
+		"Upto Rule 7 OK. Password Must Contain One Of The Sponsors: Pepsi, Shell, Starbucks",
+		"Upto Rule 8 OK. Roman Numerals Must Multiply to 35",
+		"Upto Rule 9 OK. Password Must Contain The Wordle Of The Day",
+		"Upto Rule 10 OK. Password Must Contain The Phase Of The Moon Emoji",
+		"You Won! Your password length is " + strconv.Itoa(len(pass)),
+	}
+
+	failureResp := []string{
+		"Password Must Have Atleast 5 Characters",
+		"Password Must Contain A Number",
+		"Password Must Contain An Uppercase Alphabet",
+		"Password Must Contain A Special Character",
+		"Digits Must Add Up to 25",
+		"Password Must Contain A Month",
+		"Password Must Contain A Roman Numeral",
+		"Password Must Contain One Of The Sponsors: Pepsi, Shell, Starbucks",
+		"Roman Numerals Must Multiply to 35",
+		"Password Must Contain The Wordle Of The Day",
+		"Password Must Contain The Phase Of The Moon Emoji",
+	}
+	p := -1
+	for i := 0; i <= 10; i++ {
+		if ruleFunctions[i](pass) == true {
+			p = i
+		} else {
+			break
+		}
+	}
+
+	if p == -1 {
+		return failureResp[0]
+	} else if p <= rule {
+		return failureResp[p]
+	} else {
+		return successResp[p]
+	}
+}
 func handlePostRequest(w http.ResponseWriter, r *http.Request) {
 	// Read the request body
 	body, err := io.ReadAll(r.Body)
@@ -323,32 +383,23 @@ func handlePostRequest(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("The rule number is ", user.Rule)
 
 	ruleInt, _ := strconv.Atoi(user.Rule)
-	fmt.Println(ruleInt, " ", reflect.TypeOf(ruleInt))
+	// fmt.Println(ruleInt, " ", reflect.TypeOf(ruleInt))
 
 	// Process the user data as needed
+	// fmt.Println("About to Call CheckPassword Function")
+	respToUser := checkPassword(user.Password, ruleInt)
+	// fmt.Println("Returned From CheckPassword Function")
 
-	ruleFunctions := []ruleFunc{
-		rule1,
-		rule2,
-		rule3,
-		rule4,
-		rule5,
-		rule6,
-		rule7,
-		rule8,
-		rule9,
-		rule10,
-		rule11,
-	}
-	fmt.Println(ruleFunctions[0](user.Password))
 	// Send a response
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Received user: %+v\n", user)
+	fmt.Fprintf(w, respToUser)
 }
 
 func main() {
 	fmt.Println("The Go code is running")
-	s := "abc12A778marchpepsiXXXVjdlksImural🌑"
+	// s := "abc12A778marchpepsiXXXVjdlksImural🌑"
+	s := "123456A$55mayM"
 	// s1 := "abcdefg"
 	// s2 := "abcd1234"
 	// s3 := "ABCDEFGH"
@@ -367,7 +418,7 @@ func main() {
 
 	// fmt.Println(rule5(s))
 	// fmt.Println(rule11(s))
-	fmt.Println(rule11(s))
+	fmt.Println(rule7(s))
 
 	// Print the response body as a string
 	// fmt.Println("Response:", string(body["solution"]))
