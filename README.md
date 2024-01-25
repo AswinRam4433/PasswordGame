@@ -82,9 +82,8 @@ Import the provided Postman collections to quickly test different password scena
 
 Feel free to contribute to this project by opening issues, providing suggestions, or submitting pull requests.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Video Explanation🎬
+## Video Explanation🎬
+
 https://www.youtube.com/watch?v=Q_G7Kfut4K4
